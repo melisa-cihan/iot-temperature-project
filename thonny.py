@@ -21,8 +21,8 @@ mqtt_pass = '1Himbeere'
 
 # MQTT SetUp
 client_id = ubinascii.hexlify(machine.unique_id())
-topic_sub = b'notification'
-topic_pub = b'sensors/inside/temperature'
+topic_sub = b'house/+/temperature'
+topic_pub = b'house/room1/temperature'
 
 last_message = 0
 message_interval = 5
@@ -56,7 +56,7 @@ def restart_and_reconnect():
 # Callback Funnction and Main Loop
 def sub_cb(topic, msg):
     print((topic, msg))
-    if topic == b'notification' and msg == b'received':
+    if topic == b'house/room1/temperature' and msg == b'received':
         print('ESP received hello message')
     try:
         client = connect_and_subscribe()
