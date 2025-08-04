@@ -21,7 +21,6 @@ mqtt_pass = '1Himbeere'
 
 # MQTT SetUp
 client_id = ubinascii.hexlify(machine.unique_id())
-topic_sub = b'house/+/temperature'
 topic_pub = b'house/room1/temperature'
 
 last_message = 0
