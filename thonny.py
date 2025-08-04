@@ -18,7 +18,8 @@ mqtt_server = '10.10.4.58'
 mqtt_user = 'pi'
 mqtt_pass = '1Himbeere'
 
-#MQTT SetUp
+
+# MQTT SetUp
 client_id = ubinascii.hexlify(machine.unique_id())
 topic_sub = b'notification'
 topic_pub = b'sensors/inside/temperature'
@@ -48,8 +49,7 @@ def connect_and_subscribe():
     return client
 
 def restart_and_reconnect():
-    print('Failed to connect to MQTT broker.
-    Reconnecting...')
+    print('Failed to connect to MQTT broker. Reconnecting...')
     time.sleep(10)
     machine.reset()
 
@@ -57,7 +57,7 @@ def restart_and_reconnect():
 def sub_cb(topic, msg):
     print((topic, msg))
     if topic == b'notification' and msg == b'received':
-    print('ESP received hello message')
+        print('ESP received hello message')
     try:
         client = connect_and_subscribe()
     except OSError as e:
@@ -70,7 +70,7 @@ def sub_cb(topic, msg):
                 client.publish(topic_pub, msg)
                 last_message = time.time()
                 counter += 1
-            except OSError as e:
+        except OSError as e:
                 restart_and_reconnect()
     
 
