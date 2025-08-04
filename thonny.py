@@ -8,6 +8,7 @@ import network
 import esp
 esp.osdebug(None)
 import gc
+import dht
 gc.collect()
 
 # MQTT Broker Info Constants
@@ -16,6 +17,7 @@ password = 'rnFIW625'
 mqtt_server = '10.10.4.58'
 mqtt_user = 'pi'
 mqtt_pass = '1Himbeere'
+mqtt_port = 1883
 
 #MQTT SetUp
 client_id = ubinascii.hexlify(machine.unique_id())
@@ -45,4 +47,15 @@ topic_sub = b'hello'
 last_message = 0
 message_interval = 5
 counter = 0
+
+# Establish Wifi Connection
+station = network.WLAN(network.STA_IF)
+station.active(True)
+station.connect(ssid, password)
+while station.isconnected() == False:
+    pass
+print('Connection successful')
+print(station.ifconfig)
+
+
 
