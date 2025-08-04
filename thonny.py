@@ -15,13 +15,13 @@ gc.collect()
 ssid = 'Rechnernetze'
 password = 'rnFIW625'
 mqtt_server = '10.10.4.58'
-mqtt_user = 'pi'
-mqtt_pass = '1Himbeere'
+#mqtt_user = 'pi'
+#mqtt_pass = '1Himbeere'
 
 
 # MQTT SetUp
 client_id = ubinascii.hexlify(machine.unique_id())
-topic_pub = b'house/room1/temperature'
+topic_pub = b'hello'
 
 last_message = 0
 message_interval = 5
@@ -40,7 +40,7 @@ print(station.ifconfig)
 # Connect and Reconnect Functions
 def connect_and_subscribe():
     global client_id, mqtt_server, topic_sub
-    client = MQTTClient(client_id, mqtt_server, user=mqtt_user, password=mqtt_pass)
+    client = MQTTClient(client_id, mqtt_server)
     client.set_callback(sub_cb)
     client.connect()
     client.subscribe(topic_sub)
