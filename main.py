@@ -16,6 +16,21 @@ def restart_and_reconnect():
   print('Failed to connect to MQTT broker. Reconnecting...')
   time.sleep(10)
   machine.reset()
+  
+_TEMP_SENSOR_PIN = 13
+
+sensor = dht.DHT22(machine.Pin(_TEMP_SENSOR_PIN))
+    
+def get_temp_value():
+    try:
+        sensor.measure()
+        temperature = sensor.temperature()
+        humidity = sensor.humidity()
+        print(f"Temperature: {temperature:.2f} °C")
+        print(f"Humidity: {humidity:.2f} %")
+        return temperature
+    except OSError as error:
+        print("Error reading sensor:", error)
 
 try:
   client = connect_and_subscribe()
@@ -24,6 +39,8 @@ except OSError as e:
 
 while True:
   try:
+    get_temp_value()
+    time.sleep(5)
     client.check_msg()
     if (time.time() - last_message) > message_interval:
       msg = b'Hello #%d' % counter
@@ -32,3 +49,5 @@ while True:
       counter += 1
   except OSError as e:
     restart_and_reconnect()
+    
+
