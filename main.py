@@ -43,16 +43,19 @@ while True:
     temp, hum = get_temp_value()
     if temp is not None and hum is not None:
         payload = {
-            "temp": temp,
-            "hum": hum,
-            "client_id": ubinascii.hexlify(machine.unique_id()).decode('utf-8')}
+            "measurement": "sensor_data",
+            "tags": {
+                "client_id": ubinascii.hexlify(machine.unique_id()).decode('utf-8')
+                },
+            "fields": {
+                "temp": temp,
+                "hum": hum
+                }
+            }    
+            
         msg = json.dumps(payload)
         client.publish(topic_pub, msg.encode('utf-8'))
         print(f"Published: {msg}")
     time.sleep(5)
   except OSError as e:
     restart_and_reconnect()
-    
-
-
-
