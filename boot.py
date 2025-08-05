@@ -5,9 +5,12 @@ import machine
 import micropython
 import network
 import esp
+import dht
+import ubinascii
 esp.osdebug(None)
 import gc
 gc.collect()
+import json
 
 ssid = 'Rechnernetze'
 password = 'rnFIW625'
@@ -31,3 +34,5 @@ while station.isconnected() == False:
 
 print('Connection successful')
 print(station.ifconfig())
+
+

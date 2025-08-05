@@ -28,9 +28,10 @@ def get_temp_value():
         humidity = sensor.humidity()
         print(f"Temperature: {temperature:.2f} °C")
         print(f"Humidity: {humidity:.2f} %")
-        return temperature
+        return temperature, humidity
     except OSError as error:
         print("Error reading sensor:", error)
+        return None, None
 
 try:
   client = connect_and_subscribe()
@@ -39,15 +40,19 @@ except OSError as e:
 
 while True:
   try:
-    get_temp_value()
+    temp, hum = get_temp_value()
+    if temp is not None and hum is not None:
+        payload = {
+            "temp": temp,
+            "hum": hum,
+            "client_id": ubinascii.hexlify(machine.unique_id()).decode('utf-8')}
+        msg = json.dumps(payload)
+        client.publish(topic_pub, msg.encode('utf-8'))
+        print(f"Published: {msg}")
     time.sleep(5)
-    client.check_msg()
-    if (time.time() - last_message) > message_interval:
-      msg = b'Hello #%d' % counter
-      client.publish(topic_pub, msg)
-      last_message = time.time()
-      counter += 1
   except OSError as e:
     restart_and_reconnect()
     
+
+
 
