@@ -1,6 +1,6 @@
 def sub_cb(topic, msg):
   print((topic, msg))
-  if topic == b'notification' and msg == b'received':
+  if topic == b'bis2025/room625/temperature' and msg == b'received':
     print('ESP received hello message')
 
 def connect_and_subscribe():

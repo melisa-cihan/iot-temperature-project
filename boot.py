@@ -15,7 +15,7 @@ mqtt_server = 'broker.f4.htw-berlin.de'
 
 client_id = ubinascii.hexlify(machine.unique_id())
 topic_sub = b'notification'
-topic_pub = b'hello'
+topic_pub = b'bis2025/room625/temperature'
 
 last_message = 0
 message_interval = 5
