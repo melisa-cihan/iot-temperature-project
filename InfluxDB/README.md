@@ -21,6 +21,7 @@ We created a Bucket named "Team8".
 To authenticate and authorize the Node-RED flow to write data, an API Token must be generated in the InfluxDB 2.0 web UI. 
 This token, which is granted write permissions for a specific bucket, must then be copied and pasted into the "Token" field of the Node-RED InfluxDB Out node's configuration.
 
-### 3. Data Recption from Node-RED
+### 3. Data Reception from Node-RED
 The InfluxDB Out node in the Node-RED flow acts as a client, sending data to the InfluxDB API. The Change node restructures the incoming message, preparing the temp and hum values to be written as fields. 
 Consequently, the InfluxDB Out node must be manually configured with the correct measurement and field names to properly ingest this data.
+
