@@ -68,9 +68,10 @@ Since Node-RED is deployed on our Raspberry Pi you need to follow these steps to
 
 1. Connecto to the Raspberry Pi via SSH:
 `ssh pi@10.10.4.58`
-2. Start Node-RED: `node-RED-start`  
+2. Start Node-RED: `node-red-start`  
 3. open http://10.10.4.58:1880 (Note: doesn't work in Chrome, use Safari)
-4. Stop Node-RED: `node-RED-stop` 
+4. Stop Node-RED: `node-red-stop` 
+
 
 
 
