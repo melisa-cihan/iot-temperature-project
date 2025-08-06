@@ -37,13 +37,3 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 - ESP32
 ### IoT Gateway
 - Raspberry Pi
-
-## Running the Application
-### Prerequisites
-### Initial Setup
-1. Clone the Repository:
-```
-git clone https://github.com/melisa-cihan/iot-temperature-project.git
-```
-
-
