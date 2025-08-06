@@ -16,11 +16,11 @@ Receives: A raw JSON string containing temperature and humidity readings, along 
 Sends: The received JSON string as msg.payload to the next node.
 
 ## 2. JSON Node
-Purpose: This node converts the raw JSON string received from the MQTT topic into a usable JavaScript object. 
+Purpose: This node, as configured, is set to "convert to JSON string" (json zeichenfolge). While the incoming message is already a string, this node effectively acts as 
 
 Receives: A JSON string from the MQTT In node.
 
-Sends: A structured JavaScript object to the function 1 node.
+Sends: The same JSON string as msg.payload to the function 1 node.
 
 ## 3. Function Node
 Purpose: This node is designed to process the JavaScript object from the JSON node. The function of this node is to prepare the message payload for the next step.
@@ -61,4 +61,5 @@ Configuration: Displays the entire message object that passes through it.
 Receives: The message object after it has been processed by the InfluxDB Out node.
 
 Sends: The message content to the Node-RED debug sidebar, allowing for inspection of the data at the end of the pipeline.
+
 
