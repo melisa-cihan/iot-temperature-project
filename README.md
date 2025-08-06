@@ -1,4 +1,4 @@
-# iot-temperature-project
+# IoT-temperature-project
 A project for the class Besondere Kapitel der Informatik in the study program Computer Science and Business Administration at the Hochschule für Technik und Wirtschaft Berlin.
 
 ## Requirements
