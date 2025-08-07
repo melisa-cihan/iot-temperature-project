@@ -3,6 +3,7 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 
 ## Requirements
 
+![Component Diagram](Diagrams/Setup_Diagram.jpg)
 ### Live temperature monitoring
 - Implementation of a solution for real-time monitoring of room temperature.
 
@@ -39,13 +40,14 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 
 ### IoT Gateway
 - [**Gateway**](Gateway/)
-    - Node-RED Flow: The data processing flow is defined in the [flows.json](Gateway/flows.json) file.
+    - Node-RED Flow (Sensors): The flow for sensor data is defined in [temp_hum_soilmoisture_flows.json](Gateway/temp_hum_soilmoisture_flows.json)
+    - Node-RED Flow (Notifications): The flow for mobile push notifications is defined in [mobile_push_notification.json](Gateway/mobile_push_notification.json)
 
 ### Backend and Visualization
 - [**Backend (Node-RED, InfluxDB)**](Backend/)
 - [**Web UI (Grafana)**](WebUI/)
-    - Grafana Dashboard: The exported Grafana dashboard JSON can be found at [Team8-1754465702373.json](WebUI/Team8-1754465702373.json).
+    - Grafana Dashboard: The exported Grafana dashboard JSON can be found at [Team8-Grafana.json](WebUI/Team8-Grafana.json)
 
 ### Documentation and Diagrams
 - [**Diagrams**](Diagrams/)
-    - System Architecture Overview: Find the architectural diagram in [Setup_Diagram.jpg](Diagrams/Setup_Diagram.jpg).
+    - System Architecture Overview: Find the architectural diagram in [Setup_Diagram.jpg](Diagrams/Setup_Diagram.jpg)
