@@ -60,6 +60,19 @@ Configuration: Displays the entire message object that passes through it.
 
 Receives: The message object after it has been processed by the InfluxDB Out node.
 
+
 Sends: The message content to the Node-RED debug sidebar, allowing for inspection of the data at the end of the pipeline.
+
+## Start & Stop Node-RED
+Since Node-RED is deployed on our Raspberry Pi you need to follow these steps to start Node-RED:
+
+1. Connecto to the Raspberry Pi via SSH:
+`ssh pi@10.10.4.58`
+2. Start Node-RED: `node-red-start`  
+3. open http://10.10.4.58:1880 (Note: doesn't work in Chrome, use Safari)
+4. Stop Node-RED: `node-red-stop` 
+
+
+
 
 
