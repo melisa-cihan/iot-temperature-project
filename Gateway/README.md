@@ -66,6 +66,11 @@ Sends: The message content to the Node-RED debug sidebar, allowing for inspectio
 ## Start & Stop Node-RED
 Since Node-RED is deployed on our Raspberry Pi you need to follow these steps to start Node-RED:
 
+The following Server was already established by our Professor:
+URL: http://bis.f4.htw-berlin.de:3000
+username: admin
+password:
+
 1. Connecto to the Raspberry Pi via SSH:
 `ssh pi@10.10.4.58`
 2. Start Node-RED: `node-red-start`  
