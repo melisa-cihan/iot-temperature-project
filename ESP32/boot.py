@@ -2,6 +2,7 @@ import time
 from umqtt.simple import MQTTClient
 import ubinascii
 import machine
+from machine import Pin, ADC
 import micropython
 import network
 import esp
@@ -19,6 +20,7 @@ mqtt_server = 'broker.f4.htw-berlin.de'
 client_id = ubinascii.hexlify(machine.unique_id())
 topic_sub = b'notification'
 topic_pub = b'bis2025/room625/temperature'
+topic_pub_moisture = b'bis2025/soil/moisture'
 
 last_message = 0
 message_interval = 5
@@ -34,3 +36,5 @@ while station.isconnected() == False:
 
 print('Connection successful')
 print(station.ifconfig())
+
+
