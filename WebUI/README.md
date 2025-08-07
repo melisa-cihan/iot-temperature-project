@@ -1,5 +1,7 @@
 # Grafana – Dashboard
 
+![Grafana Dashboard](Dashboard_Grafana.png)
+
 Grafana visualizes temperature, humidity and soil moisture time-series-data. It sends a request to the InfluxDB to fetch the data.
 
 ## Features
@@ -11,4 +13,5 @@ Grafana visualizes temperature, humidity and soil moisture time-series-data. It 
 The following Server was already established by our Professor:
 URL: http://bis.f4.htw-berlin.de:3000
 username: admin
+
 password:
