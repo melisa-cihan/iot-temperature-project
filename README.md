@@ -32,8 +32,20 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 
 ## Project Structure
 ### Broker
-- mqtt://broker.f4.htw-berlin.de:1883
+- `mqtt://broker.f4.htw-berlin.de:1883`
+
 ### Constrained Devices
-- ESP32
+- [**ESP32 Code**](ConstrainedDevice/)
+
 ### IoT Gateway
-- Raspberry Pi
+- [**Gateway**](Gateway/)
+    - Node-RED Flow: The data processing flow is defined in the [flows.json](Gateway/flows.json) file.
+
+### Backend and Visualization
+- [**Backend (Node-RED, InfluxDB)**](Backend/)
+- [**Web UI (Grafana)**](WebUI/)
+    - Grafana Dashboard: The exported Grafana dashboard JSON can be found at [Team8-1754465702373.json](WebUI/Team8-1754465702373.json).
+
+### Documentation and Diagrams
+- [**Diagrams**](Diagrams/)
+    - System Architecture Overview: Find the architectural diagram in [Setup_Diagram.jpg](Diagrams/Setup_Diagram.jpg).
