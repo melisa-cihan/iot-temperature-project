@@ -21,6 +21,7 @@ This project uses the following hardware, software, and communication protocols:
 * **Hardware:**
     * **ESP32:** The microcontroller running the code
     * **DHT22:** The connected sensor for environmental measurements
+    * **Hygrometer Modul V1.2:** The connected sensor for measuring soil moisture
 * **Software & Firmware:**
     * **MicroPython:** The firmware and programming language used on the ESP32
 * **Libraries:**
