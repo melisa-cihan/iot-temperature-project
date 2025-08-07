@@ -1,0 +1,370 @@
+[
+    {
+        "id": "b358e9f113063ef8",
+        "type": "tab",
+        "label": "Alerts",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "21cf7b45a425acb5",
+        "type": "mqtt in",
+        "z": "b358e9f113063ef8",
+        "name": "",
+        "topic": "bis2025/room625/temperature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "975e8fc7980a8dc2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "8940680f906c7605"
+            ]
+        ]
+    },
+    {
+        "id": "8940680f906c7605",
+        "type": "json",
+        "z": "b358e9f113063ef8",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "da2f75170dba2921"
+            ]
+        ]
+    },
+    {
+        "id": "da2f75170dba2921",
+        "type": "function",
+        "z": "b358e9f113063ef8",
+        "name": "parse json",
+        "func": "msg.payload = JSON.parse(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 220,
+        "wires": [
+            [
+                "bef9efd4ebdd22f8"
+            ]
+        ]
+    },
+    {
+        "id": "bef9efd4ebdd22f8",
+        "type": "change",
+        "z": "b358e9f113063ef8",
+        "name": "Restructure Payload",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.fields.temp",
+                "pt": "msg",
+                "to": "payload.temp",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.fields.hum",
+                "pt": "msg",
+                "to": "payload.hum",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.fields",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.tags",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.measurement",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 220,
+        "wires": [
+            [
+                "4d42ce6ef84b917a",
+                "2bd983a4d1d45652"
+            ]
+        ]
+    },
+    {
+        "id": "eaeebebfc6486c6f",
+        "type": "http request",
+        "z": "b358e9f113063ef8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://ntfy.sh/nodered_temp_alerts",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "X-Title",
+                "valueType": "other",
+                "valueValue": "Temperature Alert"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Tags",
+                "valueType": "other",
+                "valueValue": "warning"
+            }
+        ],
+        "x": 990,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d42ce6ef84b917a",
+        "type": "switch",
+        "z": "b358e9f113063ef8",
+        "name": "High Alert Threshold",
+        "property": "payload.temp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "27",
+                "vt": "num",
+                "v2": "29",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 360,
+        "y": 440,
+        "wires": [
+            [
+                "fdeadfbfbb3251db"
+            ]
+        ]
+    },
+    {
+        "id": "fdeadfbfbb3251db",
+        "type": "change",
+        "z": "b358e9f113063ef8",
+        "name": "Set Alert Message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Current temperature is too high",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 440,
+        "wires": [
+            [
+                "79496984ae834989"
+            ]
+        ]
+    },
+    {
+        "id": "79496984ae834989",
+        "type": "delay",
+        "z": "b358e9f113063ef8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "20",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 800,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9c0697e88fb93759",
+        "type": "http request",
+        "z": "b358e9f113063ef8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://ntfy.sh/nodered_temp_alerts",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "X-Title",
+                "valueType": "other",
+                "valueValue": "Temperature Alert"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Tags",
+                "valueType": "other",
+                "valueValue": "rotating_light"
+            }
+        ],
+        "x": 990,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bd983a4d1d45652",
+        "type": "switch",
+        "z": "b358e9f113063ef8",
+        "name": "Critical Alert Threshold",
+        "property": "payload.temp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "29",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 360,
+        "y": 500,
+        "wires": [
+            [
+                "cacf79b83a57e6e6"
+            ]
+        ]
+    },
+    {
+        "id": "cacf79b83a57e6e6",
+        "type": "change",
+        "z": "b358e9f113063ef8",
+        "name": "Set Alert Message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Current temperature is critical",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 500,
+        "wires": [
+            [
+                "5c82ad266684f501"
+            ]
+        ]
+    },
+    {
+        "id": "5c82ad266684f501",
+        "type": "delay",
+        "z": "b358e9f113063ef8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "20",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 800,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "975e8fc7980a8dc2",
+        "type": "mqtt-broker",
+        "name": "HTW Broker",
+        "broker": "broker.f4.htw-berlin.de",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

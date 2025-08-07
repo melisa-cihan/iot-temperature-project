@@ -39,3 +39,7 @@ This script runs automatically on the ESP32's startup and is responsible for **a
 
 ### **`main.py`**
 This file contains the **core application logic** of the device, which runs in a continuous loop. It is responsible for **reading sensor data**, formatting the data into a **JSON payload**, and publishing it to the MQTT broker. It also includes the logic for **error handling** and device reconnection.
+
+## Set-Up
+The following Server was already established by our Professor:
+URL: mqtt://broker.f4.htw-berlin.de:1883
