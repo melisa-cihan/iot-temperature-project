@@ -15,11 +15,17 @@ def restart_and_reconnect():
   time.sleep(10)
   machine.reset()
   
+_TEMP_LED_PIN = 4
+_MOIST_LED_PIN = 5
+_HUM_LED_PIN = 22
 _TEMP_SENSOR_PIN = 13
 _MOISTURE_SENSOR_PIN = 34
 
 moisture_sensor = ADC(Pin(_MOISTURE_SENSOR_PIN))
 sensor = dht.DHT22(machine.Pin(_TEMP_SENSOR_PIN))
+temp_led = Pin(_TEMP_LED_PIN, Pin.OUT)
+moist_led = Pin(_MOIST_LED_PIN, Pin.OUT)
+hum_led = Pin(_HUM_LED_PIN, Pin.OUT)
 
 #3.3V = 11DB
 moisture_sensor.atten(ADC.ATTN_11DB)
@@ -62,6 +68,36 @@ except OSError as e:
 while True:
   try:
     temp, hum = get_temp_value()
+    moisture = get_moisture_value()
+   
+    if temp is not None:
+        if temp >= 27.0:
+            print("Temperature is high. Turning on Green LED.")
+            temp_led.value(1)
+            time.sleep(2)
+        else:
+            print("Temperature is normal. Turning off Green LED.")
+            temp_led.value(0)
+    
+    if moisture is not None:
+        if moisture >= 60.0:
+            print("Soil is moist. Turning on Blue LED.")
+            moist_led.value(1)
+            time.sleep(2)
+        else:
+            print("Soil is dry. Turning off Blue LED.")
+            moist_led.value(0)
+
+    if hum is not None:
+        if hum >= 20.0:
+            print("Air is humid. Turning on Red LED.")
+            hum_led.value(1)
+            time.sleep(2)
+        else:
+            print("Air is dry. Turning off Red LED.")
+            hum_led.value(0)
+    
+    
     if temp is not None and hum is not None:
         payload = {
             "measurement": "sensor_data",
