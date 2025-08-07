@@ -25,12 +25,6 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 ### MQTT broker as a means of communication
 - An existing MQTT broker can be used for communication.
 
-## Technologies Used
-- Grafana
-- InfluxDB
-- MQTT
-- Node-RED
-
 ## Project Structure
 ### Broker
 - `mqtt://broker.f4.htw-berlin.de:1883`
