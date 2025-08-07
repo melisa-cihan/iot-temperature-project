@@ -1,3 +1,9 @@
+"""
+This file contains the core application logic of the device, which runs in a continuous loop.
+It is responsible for reading sensor data, formatting the data into a JSON payload,
+and publishing it to the MQTT broker. It also includes the logic for error handling and device reconnection.
+"""
+
 def sub_cb(topic, msg):
   print((topic, msg))
 
