@@ -3,6 +3,7 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 
 ## Requirements
 
+![Component Diagram](Diagrams/Setup_Diagram.jpg)
 ### Live temperature monitoring
 - Implementation of a solution for real-time monitoring of room temperature.
 
