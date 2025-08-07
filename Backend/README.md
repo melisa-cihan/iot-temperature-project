@@ -25,3 +25,8 @@ This token, which is granted write permissions for a specific bucket, must then 
 The InfluxDB Out node in the Node-RED flow acts as a client, sending data to the InfluxDB API. The Change node restructures the incoming message, preparing the temp and hum values to be written as fields. 
 Consequently, the InfluxDB Out node must be manually configured with the correct measurement and field names to properly ingest this data.
 
+### Set-Up
+The following Server was already established by our Professor:
+URL: http://bis.f4.htw-berlin.de:8086
+username: admin
+password:
