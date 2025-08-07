@@ -1,3 +1,10 @@
+"""
+This script runs automatically on the ESP32's startup and is responsible
+for all initial setup and configuration.
+Its primary tasks are to establish a Wi-Fi connection, define the MQTT client 
+settings, and set up the global variables needed by the main application.
+"""
+
 import time
 from umqtt.simple import MQTTClient
 import ubinascii
