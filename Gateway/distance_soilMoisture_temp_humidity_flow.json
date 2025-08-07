@@ -1,0 +1,43 @@
+[
+    {
+        "id": "509d9ec45ac41ae1",
+        "type": "influxdb out",
+        "z": "5b61bca11a8e0037",
+        "influxdb": "4e3be732a0f45d5d",
+        "name": "distance_DB",
+        "measurement": "distance_measure",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "htw",
+        "bucket": "team8",
+        "x": 910,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "4e3be732a0f45d5d",
+        "type": "influxdb",
+        "hostname": "http://bis.f4.htw- berlin.de",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database8",
+        "name": "InfluxBlau",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://bis.f4.htw-berlin.de:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "cea6171dbbc332bb",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]

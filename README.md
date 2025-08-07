@@ -34,7 +34,7 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 
 ### IoT Gateway
 - [**Gateway**](Gateway/)
-    - Node-RED Flow (Sensors): The flow for sensor data is defined in [temp_hum_soilmoisture_flows.json](Gateway/temp_hum_soilmoisture_flows.json)
+    - Node-RED Flow (Sensors): The flow for sensor data is defined in [temp_hum_soilmoisture_flows.json](Gateway/distance_soilMoisture_temp_humidity_flow.json)
     - Node-RED Flow (Notifications): The flow for mobile push notifications is defined in [mobile_push_notification.json](Gateway/mobile_push_notification.json)
 
 ### Backend and Visualization
