@@ -1,7 +1,5 @@
 def sub_cb(topic, msg):
   print((topic, msg))
-  if topic == b'bis2025/room625/temperature' and msg == b'received':
-    print('ESP received hello message')
 
 def connect_and_subscribe():
   global client_id, mqtt_server, topic_sub
@@ -18,8 +16,31 @@ def restart_and_reconnect():
   machine.reset()
   
 _TEMP_SENSOR_PIN = 13
+_MOISTURE_SENSOR_PIN = 34
 
+moisture_sensor = ADC(Pin(_MOISTURE_SENSOR_PIN))
 sensor = dht.DHT22(machine.Pin(_TEMP_SENSOR_PIN))
+
+#3.3V = 11DB
+moisture_sensor.atten(ADC.ATTN_11DB)
+
+def get_moisture_value():
+    try:
+        raw_moisture = moisture_sensor.read()
+        max_moisture_value = 2685
+        min_moisture_value = 1059
+        moisture_percentage = ((max_moisture_value - raw_moisture) / (max_moisture_value - min_moisture_value)) * 100
+        
+        if moisture_percentage > 100: moisture_percentage = 100
+        if moisture_percentage < 0: moisture_percentage = 0
+        
+        print(f"Soil Moisture: {moisture_percentage:.2f} % (Raw: {raw_moisture})")
+        return moisture_percentage
+    except Exception as e:
+        print("Error reading moisture sensor:", e)
+        return None
+
+    
     
 def get_temp_value():
     try:
@@ -55,7 +76,28 @@ while True:
             
         msg = json.dumps(payload)
         client.publish(topic_pub, msg.encode('utf-8'))
-        print(f"Published: {msg}")
+        print(f"Published to {topic_pub}: {msg}")
+    
+    moisture = get_moisture_value()
+    if moisture is not None:
+        payload_moisture = {
+            "measurement": "soil_moisture_sensor_data",
+            "tags": {
+                "client_id": ubinascii.hexlify(machine.unique_id()).decode('utf-8')
+                },
+            "fields": {
+                "moisture": moisture
+                }
+            }
+        msg_moisture = json.dumps(payload_moisture)
+        client.publish(topic_pub_moisture, msg_moisture.encode('utf-8'))
+        print(f"Published to {topic_pub_moisture}: {msg_moisture}")
+        
+        
     time.sleep(5)
   except OSError as e:
     restart_and_reconnect()
+    
+
+
+
