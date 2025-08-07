@@ -35,14 +35,7 @@ This project uses the following hardware, software, and communication protocols:
 ## 3. Files
 
 ### **`boot.py`**
-This script runs automatically on the ESP32's startup and handles all initial configuration
-* The `station.connect()` function manages the **Wi-Fi connection**
-* The line `client_id = ubinascii.hexlify(machine.unique_id())` generates the **unique client ID**
-* The MQTT topics (`topic_sub` and `topic_pub`) are **defined here** and prepared for use in `main.py`
+This script runs automatically on the ESP32's startup and is responsible for **all initial setup and configuration**. Its primary tasks are to establish a **Wi-Fi connection**, define the **MQTT client settings**, and set up the global variables needed by the main application.
 
 ### **`main.py`**
-This file contains the core application logic, designed to run in a continuous loop
-* The `connect_and_subscribe()` function establishes the **MQTT connection**
-* The `get_temp_value()` function handles the **sensor readings**
-* The `client.publish()` function is responsible for **publishing the data**
-* The `restart_and_reconnect()` function manages **error handling and reconnections**
+This file contains the **core application logic** of the device, which runs in a continuous loop. It is responsible for **reading sensor data**, formatting the data into a **JSON payload**, and publishing it to the MQTT broker. It also includes the logic for **error handling** and device reconnection.
