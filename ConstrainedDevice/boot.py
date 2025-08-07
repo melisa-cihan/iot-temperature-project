@@ -28,6 +28,7 @@ client_id = ubinascii.hexlify(machine.unique_id())
 topic_sub = b'notification'
 topic_pub = b'bis2025/room625/temperature'
 topic_pub_moisture = b'bis2025/soil/moisture'
+topic_pub_distance = b'bis2025/ultrasonic/distance'
 
 last_message = 0
 message_interval = 5

@@ -26,12 +26,16 @@ _MOIST_LED_PIN = 5
 _HUM_LED_PIN = 22
 _TEMP_SENSOR_PIN = 13
 _MOISTURE_SENSOR_PIN = 34
+_ULTRASONIC_TRIG_PIN = 17
+_ULTRASONIC_ECHO_PIN = 14
 
 moisture_sensor = ADC(Pin(_MOISTURE_SENSOR_PIN))
 sensor = dht.DHT22(machine.Pin(_TEMP_SENSOR_PIN))
 temp_led = Pin(_TEMP_LED_PIN, Pin.OUT)
 moist_led = Pin(_MOIST_LED_PIN, Pin.OUT)
 hum_led = Pin(_HUM_LED_PIN, Pin.OUT)
+trig_pin = Pin(_ULTRASONIC_TRIG_PIN, Pin.OUT)
+echo_pin = Pin(_ULTRASONIC_ECHO_PIN, Pin.IN)
 
 #3.3V = 11DB
 moisture_sensor.atten(ADC.ATTN_11DB)
@@ -51,8 +55,38 @@ def get_moisture_value():
     except Exception as e:
         print("Error reading moisture sensor:", e)
         return None
+    
+
+def get_distance():
+    trig_pin.value(0)
+    time.sleep_us(2)
+    trig_pin.value(1)
+    time.sleep_us(10)
+    trig_pin.value(0)
 
     
+    timeout_start = time.ticks_us()
+    while echo_pin.value() == 0:
+        if time.ticks_diff(time.ticks_us(), timeout_start) > 20000:
+            return None 
+
+    start_time = time.ticks_us()
+    while echo_pin.value() == 1:
+        if time.ticks_diff(time.ticks_us(), start_time) > 20000:
+            return None
+
+    end_time = time.ticks_us()
+
+    
+    duration = time.ticks_diff(end_time, start_time)
+
+    
+    distance = (duration * 0.0343) / 2
+    
+    print(f"Distanz: {distance:.2f} cm")
+    
+    return distance
+
     
 def get_temp_value():
     try:
@@ -118,6 +152,22 @@ while True:
             
         msg = json.dumps(payload)
         client.publish(topic_pub, msg.encode('utf-8'))
+        print(f"Published to {topic_pub}: {msg}")
+        
+
+    distance = get_distance()
+    if distance is not None:
+        payload_distance = {
+            "measurement": "ultrasonic_data",
+            "tags": {
+                "client_id": ubinascii.hexlify(machine.unique_id()).decode('utf-8')
+                 },
+            "fields": {
+                "distance": distance
+                }
+             }
+        msg = json.dumps(payload_distance)
+        client.publish(topic_pub_distance, msg.encode('utf-8'))
         print(f"Published to {topic_pub}: {msg}")
     
     moisture = get_moisture_value()
