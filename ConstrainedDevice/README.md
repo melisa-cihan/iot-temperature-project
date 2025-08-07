@@ -28,18 +28,3 @@ This project uses the following hardware, software, and communication protocols:
     * `dht`: The library for interfacing with the DHT22 sensor
 * **Protocols:**
     * **MQTT:** The messaging protocol used for data transmission
-    * **JSON:** The data format for the sensor payload
-
----
-
-## 3. Files
-
-### **`boot.py`**
-This script runs automatically on the ESP32's startup and is responsible for **all initial setup and configuration**. Its primary tasks are to establish a **Wi-Fi connection**, define the **MQTT client settings**, and set up the global variables needed by the main application.
-
-### **`main.py`**
-This file contains the **core application logic** of the device, which runs in a continuous loop. It is responsible for **reading sensor data**, formatting the data into a **JSON payload**, and publishing it to the MQTT broker. It also includes the logic for **error handling** and device reconnection.
-
-## Set-Up
-The following Server was already established by our Professor:
-URL: mqtt://broker.f4.htw-berlin.de:1883
