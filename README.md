@@ -3,7 +3,7 @@ A project for the class Besondere Kapitel der Informatik in the study program Co
 
 ## Requirements
 
-https://github.com/melisa-cihan/iot-temperature-project/raw/main/art/Diagrams/Setup_Diagram.jpg
+https://github.com/melisa-cihan/iot-temperature-project/raw/main/Diagrams/Setup_Diagram.jpg
 
 ### Live temperature monitoring
 - Implementation of a solution for real-time monitoring of room temperature.
