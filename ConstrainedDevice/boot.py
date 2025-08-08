@@ -20,8 +20,8 @@ import gc
 gc.collect()
 import json
 
-ssid = 'Rechnernetze'
-password = 'rnFIW625'
+ssid = ' '
+password = ' '
 mqtt_server = 'broker.f4.htw-berlin.de'
 
 client_id = ubinascii.hexlify(machine.unique_id())
